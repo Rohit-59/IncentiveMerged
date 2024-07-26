@@ -84,7 +84,7 @@ let path2;
 
 let newVariantlist = [];
 
-ipcMain.on("file-selected-salesExcel", (event, data) => {
+ipcMain.on("newVariantlist", (event, data) => {
   newVariantlist = data;
 });
 
@@ -176,11 +176,11 @@ const checkQualifingCondition = (formData, employeeStatusDataSheet) => {
       "JIMNY":0,
       "INVICTO":0,
     }
-
+if(newVariantlist){
     newVariantlist.forEach((variant)=>{
       carObj[variant] = 0; 
     })
-
+  }
     const DSE_NoOfSoldCarExcelDataArr = Object.values(item)[0];
     // check OLD / NEW DSE
     let empStatus = true;
@@ -615,10 +615,16 @@ ipcMain.on('form-submit', (event, formData) => {
         "JIMNY":item['JIMNY'],
         "INVICTO":item['INVICTO'],
         "G.VITARA":item['G.VITARA'],
+        ...newVariantlist.reduce((acc,variant)=>{
+                acc[variant] =[];
+                return acc;
+        },{}),
         "Grand Total": item["Grand Total"],
         "Vehicle Incentive": item["Total PerCar Incentive"] + item["PerModel Incentive"],
         "Special Car Incentive": item['SpecialCar Incentive'],
-        "Total Vehicle Incentive": item["Total PerCar Incentive"] + item['SpecialCar Incentive'] + item["TotalModelIncentive"],
+        "PerModel Incentive": item["PerModel Incentive"],
+        "Model Incentive" : item["TotalModelIncentive"],
+        "Total Vehicle Incentive": parseInt(item["Total PerCar Incentive"]) + parseInt(item['SpecialCar Incentive']) + parseInt(item["TotalModelIncentive"]),
         "EarlyBird Incentive": item["EarlyBird Incentive"],
         "GNA Incentive": item["GNA Incentive"],
         "Total Productivity Car Incentive":getIncentiveValue(item, "Total Productivity Car Incentive"),
@@ -631,8 +637,6 @@ ipcMain.on('form-submit', (event, formData) => {
         "MGA Incentive": Math.round(item["MGA Incentive"]),
         "Exchange Count": item["Exchange Status"],
         "Exchange Incentive": item["Exchange Incentive"],
-        "PerModel Incentive": item["PerModel Incentive"],
-        "Model Incentive" : item["TotalModelIncentive"],
         //TODO
         "Extended Warranty Penetration": Math.round(item["EW Penetration"]),
         "Extended Warranty Count": item["EWPCount"],
@@ -652,6 +656,12 @@ ipcMain.on('form-submit', (event, formData) => {
         "Complaint Deduction": item["Complaint Deduction"],//TODO
         "Final Incentive": Math.round(grandTotal) > 0 ? Math.round(grandTotal):0,
       }
+
+      newVariantlist.forEach((variant)=>{
+        obj[variant].push(item[variant]);
+      })
+
+
       finalExcelobjOldDSE.push(obj);
     })
     // Pushing Nonqualified OLD DSE objects to Final Object
@@ -681,9 +691,15 @@ ipcMain.on('form-submit', (event, formData) => {
         "JIMNY":item['JIMNY'],
         "INVICTO":item['INVICTO'],
         "G.VITARA":item['G.VITARA'],
+        ...newVariantlist.reduce((acc,variant)=>{
+          acc[variant] =[];
+          return acc;
+  },{}),
         "Grand Total": item["Grand Total"],
         "Vehicle Incentive": item["Total PerCar Incentive"],
         "Special Car Incentive": item['SpecialCar Incentive'],
+        "PerModel Incentive": item["PerModel Incentive"],
+        "Model Incentive" : item["TotalModelIncentive"],
         "Total Vehicle Incentive": item["Total PerCar Incentive"] + item['Special Car Incentive'],
         "EarlyBird Incentive": item["EarlyBird Incentive"],
         "GNA Incentive":item["GNA Incentive"],
@@ -697,8 +713,7 @@ ipcMain.on('form-submit', (event, formData) => {
         "MGA Incentive": Math.round(item["MGA Incentive"]),
         "Exchange Count": item["Exchange Status"],
         "Exchange Incentive": item["Exchange Incentive"],
-        "Model Incentive" : item["TotalModelIncentive"],
-        "PerModel Incentive": item["PerModel Incentive"],
+       
         //TODO
         "Extended Warranty Penetration": Math.round(item["EW Penetration"]),
         "Extended Warranty Count": item["EWPCount"],
@@ -718,6 +733,11 @@ ipcMain.on('form-submit', (event, formData) => {
         "Complaint Deduction": item["Complaint Deduction"],//TODO
         "Final Incentive": Math.round(grandTotal),
       }
+      newVariantlist.forEach((variant)=>{
+        obj[variant].push(item[variant]);
+      })
+
+
       finalExcelobjOldDSE.push(obj);
     })
     // Pushing New DSE objects to Final Object
@@ -758,9 +778,15 @@ ipcMain.on('form-submit', (event, formData) => {
         "JIMNY":item['JIMNY'],
         "INVICTO":item['INVICTO'],
         "G.VITARA":item['G.VITARA'],
+        ...newVariantlist.reduce((acc,variant)=>{
+          acc[variant] =[];
+          return acc;
+  },{}),
         "Grand Total": item["Grand Total"],
         "Vehicle Incentive": item["Vehicle Incentive"],
         "Special Car Incentive": item['SpecialCar Incentive'],
+        "PerModel Incentive": item["PerModel Incentive"],
+        "Model Incentive" : item["TotalModelIncentive"],
         "Total Vehicle Incentive": item["Vehicle Incentive"],
         "EarlyBird Incentive": item["EarlyBird Incentive"],
         "GNA Incentive":item["GNA Incentive"],
@@ -774,8 +800,7 @@ ipcMain.on('form-submit', (event, formData) => {
         "MGA Incentive": Math.round(item["MGA Incentive"]),
         "Exchange Count": item["Exchange Status"],
         "Exchange Incentive": item["Exchange Incentive"],
-        "Model Incentive" : item["TotalModelIncentive"],
-        "PerModel Incentive": item["PerModel Incentive"],
+     
         //TODO
         "Extended Warranty Penetration": Math.round(item["EW Penetration"]),
         "Extended Warranty Count": item["EWPCount"],
@@ -796,6 +821,11 @@ ipcMain.on('form-submit', (event, formData) => {
         "Final Incentive": item["Final Incentive"],
         // "Final Incentive": parseInt(grandTotal)
       }
+      newVariantlist.forEach((variant)=>{
+        obj[variant].push(item[variant]);
+      })
+
+
       finalExcelobjOldDSE.push(obj);
     })
 

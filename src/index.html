@@ -691,6 +691,16 @@
 
             <!-- PerModel 2 -->
             <h2 style="color: #1f1a17">Incentive Based on Numbers</h2>
+
+
+            <label for="perModelNumSelect" style="color: #1f1a17"
+            >Select Incentive Calculation Type:</label
+          >
+          <select id="perModelNumSelect">
+            <option value="percent">Percent Type</option>
+            <option value="fixvalue">Number Type</option>
+          </select>
+  <br>
             <button type="button" id="addNumberPairButton">Add Input</button>
             <button type="button" id="removeNumberPairButton">
               Remove Input
@@ -731,8 +741,9 @@
             Remove Input
           </button>
           <div id="modelVariantAddition-container"></div>
+          <button type="button" id="variantFormBtn">Add Variants</button>
         </div>
-        <button type="button" id="variantFormBtn">Add Variants</button>
+    
 
 
         <!-- Special Car Incentive -->
@@ -789,7 +800,7 @@
           <option value="fixvalueDeduction">Number Type</option>
         </select>
 
-
+<br>
 
           <button type="button" id="addComplaintPairButton">Add Input</button>
           <button type="button" id="removeLastComplaintPairButton">

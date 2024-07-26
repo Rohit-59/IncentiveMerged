@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
     div.innerHTML = `
         <label for="vehicleNumber">Number of Cars:</label>
         <input type="number" name="vehicleNumber">
-        <label for="incentive">Incentive(%):</label>
+        <label for="incentive">Incentive:</label>
         <input type="number" name="incentive" step="any">
     `;
     pairContainer.appendChild(div);
@@ -967,10 +967,10 @@ removeEBInputButton.addEventListener("click", () => {
                     </div>
                 `;
         perModelPairContainer.insertAdjacentHTML("beforeend", newPairHTML);
-        break;
+      //   break;
 
-      case "perModelDropdown":
-        console.log("perModelDropdown");
+      // case "perModelDropdown":
+        // console.log("perModelDropdown");
         specialCarPairCount++;
         const specialCarPairContainer = document.getElementById(
           "specialCarPairContainer"
@@ -1019,7 +1019,7 @@ removeEBInputButton.addEventListener("click", () => {
       addVariantField("qcCheck", model);
       addVariantField("perModelDropdown", model);
     });
-    ipcRenderer.send("newVariantlist", newVariantlist);
+    ipcRenderer.send("newVariantlist", ModelAddition);
   });
 
 
@@ -1180,6 +1180,7 @@ removeEBInputButton.addEventListener("click", () => {
       const productivityCarsPair = document.getElementsByClassName(
         "productivityCarsPair"
       );
+
       for (let i = 0; i < productivityCarsPair.length; i++) {
         const pairContainer = productivityCarsPair[i];
         const carsInput = pairContainer.querySelector('input[name="cars"]');
@@ -1194,6 +1195,11 @@ removeEBInputButton.addEventListener("click", () => {
 
         productivityPair.push(pair);
       }
+
+
+
+      const perModelNumType = document.getElementById("perModelNumSelect").value;
+
 
       const NumberpairContainers = document.getElementsByClassName(
         "Number-pair-container"
@@ -1215,6 +1221,11 @@ removeEBInputButton.addEventListener("click", () => {
       }
 
 
+
+
+
+
+
       const modelVariantAdditioncontainer = document.getElementsByClassName(
         "modelVariantAddition-container"
       );
@@ -1232,6 +1243,10 @@ removeEBInputButton.addEventListener("click", () => {
         };
         ModelAddition.push(exchangePair);
       }
+
+
+
+
 
       const exchangeType = document.getElementById("exchangeSelect").value;
       const ExchangepairContainers = document.getElementsByClassName(
@@ -1255,10 +1270,13 @@ removeEBInputButton.addEventListener("click", () => {
       }
 
 
+
+
+
       const complaintType = document.getElementById("complaintSelect").value;
 
       const ComplaintpairContainers = document.getElementsByClassName(
-        "Complaint-pairs-container-Percent"
+        "Complaint-pair-container"
       );
       for (let i = 0; i < ComplaintpairContainers.length; i++) {
         const ComplaintpairContainer = ComplaintpairContainers[i];
@@ -1275,23 +1293,29 @@ removeEBInputButton.addEventListener("click", () => {
         ComplaintInputs.push(exchangePair);
       }
 
-      const ComplaintpairContainersPercent = document.getElementsByClassName(
-        "Complaint-pairs-container-Percent"
-      );
-      for (let i = 0; i < ComplaintpairContainersPercent.length; i++) {
-        const ComplaintpairContainer = ComplaintpairContainersPercent[i];
-        const complaintInput = ComplaintpairContainer.querySelector(
-          'input[name="complaintPercent"]'
-        );
-        const incentiveInput = ComplaintpairContainer.querySelector(
-          'input[name="incentive"]'
-        );
-        const exchangePair = {
-          ComplaintNumber: complaintInput.value,
-          incentive: incentiveInput.value,
-        };
-        ComplaintInputsPercent.push(exchangePair);
-      }
+
+
+
+      // const ComplaintpairContainersPercent = document.getElementsByClassName(
+      //   "Complaint-pairs-container-Percent"
+      // );
+      // for (let i = 0; i < ComplaintpairContainersPercent.length; i++) {
+      //   const ComplaintpairContainer = ComplaintpairContainersPercent[i];
+      //   const complaintInput = ComplaintpairContainer.querySelector(
+      //     'input[name="complaintPercent"]'
+      //   );
+      //   const incentiveInput = ComplaintpairContainer.querySelector(
+      //     'input[name="incentive"]'
+      //   );
+      //   const exchangePair = {
+      //     ComplaintNumber: complaintInput.value,
+      //     incentive: incentiveInput.value,
+      //   };
+      //   ComplaintInputsPercent.push(exchangePair);
+      // }
+
+
+
 
       const EWinputsContainer = document.getElementById("EWinputsContainer");
       EWinputsContainer.querySelectorAll(".inputGroup").forEach((inputDiv) => {
@@ -1324,6 +1348,9 @@ removeEBInputButton.addEventListener("click", () => {
         EWInputs.push(incentive);
       });
 
+
+
+
       const MSRinputsContainer = document.getElementById("MSRinputsContainer");
       MSRinputsContainer.querySelectorAll(".inputGroup").forEach((inputDiv) => {
         const incentive = {};
@@ -1354,6 +1381,9 @@ removeEBInputButton.addEventListener("click", () => {
         );
         MSRinputs.push(incentive);
       });
+
+
+
 
       const CCPinputsContainer = document.getElementById("CCPinputsContainer");
       CCPinputsContainer.querySelectorAll(".CCPinputGroup").forEach(
@@ -1387,6 +1417,9 @@ removeEBInputButton.addEventListener("click", () => {
           CCPInputs.push(incentive);
         }
       );
+
+
+
 
       const MSSFinputsContainer = document.getElementById(
         "MSSFinputsContainer"
@@ -1423,6 +1456,9 @@ removeEBInputButton.addEventListener("click", () => {
         }
       );
 
+
+
+
       const DinputGroups = document.querySelectorAll(".DinputGroup");
       DinputGroups.forEach((inputDiv) => {
         const amountMinInput = inputDiv.querySelector('[name="amountMin"]');
@@ -1437,6 +1473,8 @@ removeEBInputButton.addEventListener("click", () => {
         DiscountInputs.push(incentive);
       });
 
+
+
       const MGAinputGroups = document.querySelectorAll(".MGAinputGroup");
       MGAinputGroups.forEach((inputDiv) => {
         const amountMinInput = inputDiv.querySelector('[name="amountMin"]');
@@ -1450,6 +1488,8 @@ removeEBInputButton.addEventListener("click", () => {
         };
         MGAranges.push(incentive);
       });
+
+
 
       const GNAinputGroups = document.querySelectorAll(".GNAinputGroup");
       GNAinputGroups.forEach((inputDiv) => {
@@ -1526,7 +1566,7 @@ removeEBInputButton.addEventListener("click", () => {
       finalObj["complaintType"] = complaintType;
       finalObj["ExchangeInputs"] = ExchangePairs;
       finalObj["ModelAddition"] = ModelAddition;
-
+      finalObj["perModelNumType"]  = perModelNumType;
       finalObj["ComplaintInputs"] = ComplaintInputs;
       finalObj["ComplaintInputsPercent"] = ComplaintInputsPercent;
       finalObj["DiscountInputs"] = DiscountInputs;
