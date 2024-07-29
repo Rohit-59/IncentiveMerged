@@ -1023,6 +1023,42 @@ removeEBInputButton.addEventListener("click", () => {
   });
 
 
+    document
+      .getElementById("numCars")
+      .addEventListener("input", function () {
+        const inputField = document.getElementById("numCars");
+        let value = inputField.value;
+
+        value = value.replace(/\D/g, "");
+
+        // Check if the value is out of range and adjust if necessary
+        if (value !== "" && (value < 1 || value > 99)) {
+          if (value <= 0) {
+            value = 1;
+          } else if (value > 99) {
+            value = 99;
+          }
+        }
+
+        inputField.value = value;
+      });
+
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+
+        content.classList.toggle("hidden");
+
+        //     if (content.classList.contains("hidden")) {
+        //   content.style.maxHeight = null;
+        // } else {
+        //   content.style.maxHeight = content.scrollHeight + "px";
+        // }
+      });
+    }
+
 
 
   form.addEventListener("submit", (e) => {
@@ -1226,23 +1262,23 @@ removeEBInputButton.addEventListener("click", () => {
 
 
 
-      const modelVariantAdditioncontainer = document.getElementsByClassName(
-        "modelVariantAddition-container"
-      );
-      for (let i = 0; i < modelVariantAdditioncontainer.length; i++) {
-        const modelVariantpairContainer = modelVariantAdditioncontainer[i];
-        const ModelInput = modelVariantpairContainer.querySelector(
-          'input[name="Model"]'
-        );
-        const incentiveInput = modelVariantpairContainer.querySelector(
-          'input[name="incentive"]'
-        );
-        const exchangePair = {
-          ExchangeNumber: ModelInput.value,
-          incentive: incentiveInput.value,
-        };
-        ModelAddition.push(exchangePair);
-      }
+      // const modelVariantAdditioncontainer = document.getElementsByClassName(
+      //   "modelVariantAddition-container"
+      // );
+      // for (let i = 0; i < modelVariantAdditioncontainer.length; i++) {
+      //   const modelVariantpairContainer = modelVariantAdditioncontainer[i];
+      //   const ModelInput = modelVariantpairContainer.querySelector(
+      //     'input[name="Model"]'
+      //   );
+      //   const incentiveInput = modelVariantpairContainer.querySelector(
+      //     'input[name="incentive"]'
+      //   );
+      //   const exchangePair = {
+      //     ExchangeNumber: ModelInput.value,
+      //     incentive: incentiveInput.value,
+      //   };
+      //   ModelAddition.push(exchangePair);
+      // }
 
 
 
@@ -1532,12 +1568,16 @@ removeEBInputButton.addEventListener("click", () => {
         for (let i = 1; i <= pairCount; i++) {
           const carModel = document.getElementById(`carModel${i}`).value;
           const incentive = document.getElementById(`incentive${i}`).value;
-          const incentivewithEW = document.getElementById(`incentivewithEW${i}`).value;
+          // const incentivewithEW = document.getElementById(`incentivewithEW${i}`).value;
 
-          perModelCarPairs[carModel] = {
-          normalIncentive: incentive,
-          EWIncentive: incentivewithEW        
-          } ;
+          // perModelCarPairs[carModel] = {
+          // normalIncentive: incentive,
+          // EWIncentive: incentivewithEW        
+          // } ;
+
+perModelCarPairs[carModel] = incentive;
+
+
           // perModelInputs.push(perModelCarPairs);
         }
       }

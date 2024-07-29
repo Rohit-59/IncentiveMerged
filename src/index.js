@@ -185,12 +185,22 @@ if(newVariantlist){
     // check OLD / NEW DSE
     let empStatus = true;
     // console.log(employeeStatusDataSheet)
-    employeeStatusDataSheet.forEach(employee => {
-      if (employee["DSE ID"] == DSE_NoOfSoldCarExcelDataArr[0]['DSE ID']) {
-        if (employee["STATUS"] === "NEW")
-          empStatus = false;
-      }
-    });
+
+
+
+if(employeeStatusDataSheet){
+  employeeStatusDataSheet.forEach(employee => {
+    if (employee["DSE ID"] == DSE_NoOfSoldCarExcelDataArr[0]['DSE ID']) {
+      if (employee["STATUS"] === "NEW")
+        empStatus = false;
+    }
+  });
+}
+    
+
+
+
+
 
     obj = {
       "DSE ID": DSE_NoOfSoldCarExcelDataArr[0]['DSE ID'],
@@ -230,7 +240,7 @@ if(newVariantlist){
       "MGA Incentive": 0,
       "Final Incentive": 0,
     }
-
+    empStatus = true;
     if (empStatus) {
 
       DSE_NoOfSoldCarExcelDataArr.forEach((sold) => {

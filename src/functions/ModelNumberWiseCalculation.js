@@ -28,6 +28,8 @@ module.exports = (qualifiedRM, formData) => {
       record["TotalModelIncentive"] = ((record["PerModel Incentive"] * IncentivePercentage)/100);
     }
 
+    record["TotalModelIncentive"] = record[record["PerModel Incentive"]];
+
   }else{
 
     if(formData.PerModelNumberCarIncentive.length !== 0){
@@ -53,7 +55,7 @@ module.exports = (qualifiedRM, formData) => {
     record["TotalModelIncentive"] = parseInt(record["PerModel Incentive"]) + IncentiveValue;
   }
 
-
+  record["TotalModelIncentive"] = record[record["PerModel Incentive"]];
 
 
 
